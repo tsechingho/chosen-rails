@@ -27,6 +27,8 @@ class SourceFile < Thor
     self.destination_root = "vendor/assets"
     inside destination_root do
       run("sass-convert -F css -T sass stylesheets/chosen.css stylesheets/chosen.css.sass")
+      gsub_file 'stylesheets/chosen.css.sass', '(chosen-sprite.png)', "('chosen-sprite.png')"
+      gsub_file 'stylesheets/chosen.css.sass', ' url', ' image-url'
     end
   end
 
