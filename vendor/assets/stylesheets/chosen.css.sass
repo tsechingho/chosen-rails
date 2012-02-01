@@ -25,29 +25,32 @@
 
 .chzn-container-single
   .chzn-single
-    background-color: #fff
-    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #eeeeee), color-stop(0.5, white))
-    background-image: -webkit-linear-gradient(center bottom, #eeeeee 0%, white 50%)
-    background-image: -moz-linear-gradient(center bottom, #eeeeee 0%, white 50%)
-    background-image: -o-linear-gradient(top, #eeeeee 0%, white 50%)
-    background-image: -ms-linear-gradient(top, #eeeeee 0%, white 50%)
+    background-color: #ffffff
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f4f4f4), color-stop(0.48, #eeeeee), color-stop(0.5, #f6f6f6), color-stop(0.8, white))
+    background-image: -webkit-linear-gradient(center bottom, #f4f4f4 0%, #eeeeee 48%, #f6f6f6 50%, white 80%)
+    background-image: -moz-linear-gradient(center bottom, #f4f4f4 0%, #eeeeee 48%, #f6f6f6 50%, white 80%)
+    background-image: -o-linear-gradient(top, #f4f4f4 0%, #eeeeee 48%, #f6f6f6 50%, white 80%)
+    background-image: -ms-linear-gradient(top, #f4f4f4 0%, #eeeeee 48%, #f6f6f6 50%, white 80%)
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#ffffff',GradientType=0 )
-    background-image: linear-gradient(top, #eeeeee 0%, white 50%)
-    -webkit-border-radius: 4px
-    -moz-border-radius: 4px
-    border-radius: 4px
+    background-image: linear-gradient(top, #f4f4f4 0%, #eeeeee 48%, #f6f6f6 50%, white 80%)
+    -webkit-border-radius: 5px
+    -moz-border-radius: 5px
+    border-radius: 5px
     -moz-background-clip: padding
     -webkit-background-clip: padding-box
     background-clip: padding-box
-    border: 1px solid #aaa
+    border: 1px solid #aaaaaa
+    -webkit-box-shadow: 0 0 3px white inset, 0 1px 1px rgba(0, 0, 0, 0.1)
+    -moz-box-shadow: 0 0 3px white inset, 0 1px 1px rgba(0, 0, 0, 0.1)
+    box-shadow: 0 0 3px white inset, 0 1px 1px rgba(0, 0, 0, 0.1)
     display: block
     overflow: hidden
     white-space: nowrap
     position: relative
-    height: 26px
-    line-height: 26px
+    height: 23px
+    line-height: 24px
     padding: 0 0 0 8px
-    color: #444
+    color: #444444
     text-decoration: none
     span
       margin-right: 26px
@@ -61,7 +64,7 @@
       display: block
       position: absolute
       right: 26px
-      top: 8px
+      top: 6px
       width: 12px
       height: 13px
       font-size: 1px
@@ -69,21 +72,6 @@
       &:hover
         background-position: right -11px
     div
-      -webkit-border-radius: 0 4px 4px 0
-      -moz-border-radius: 0 4px 4px 0
-      border-radius: 0 4px 4px 0
-      -moz-background-clip: padding
-      -webkit-background-clip: padding-box
-      background-clip: padding-box
-      background: #ccc
-      background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #cccccc), color-stop(0.6, #eeeeee))
-      background-image: -webkit-linear-gradient(center bottom, #cccccc 0%, #eeeeee 60%)
-      background-image: -moz-linear-gradient(center bottom, #cccccc 0%, #eeeeee 60%)
-      background-image: -o-linear-gradient(bottom, #cccccc 0%, #eeeeee 60%)
-      background-image: -ms-linear-gradient(top, #cccccc 0%, #eeeeee 60%)
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cccccc', endColorstr='#eeeeee',GradientType=0 )
-      background-image: linear-gradient(top, #cccccc 0%, #eeeeee 60%)
-      border-left: 1px solid #aaa
       position: absolute
       right: 0
       top: 0
@@ -91,7 +79,7 @@
       height: 100%
       width: 18px
       b
-        background: image-url('chosen-sprite.png') no-repeat 0 1px
+        background: image-url('chosen-sprite.png') no-repeat 0 0
         display: block
         width: 100%
         height: 100%
@@ -159,6 +147,9 @@
       color: #666
       background: transparent !important
       border: 0 !important
+      font-family: sans-serif
+      font-size: 100%
+      height: 15px
       padding: 5px
       margin: 1px 0
       outline: 0
@@ -176,17 +167,20 @@
     -webkit-background-clip: padding-box
     background-clip: padding-box
     background-color: #e4e4e4
-    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #e4e4e4), color-stop(0.7, #eeeeee))
-    background-image: -webkit-linear-gradient(center bottom, #e4e4e4 0%, #eeeeee 70%)
-    background-image: -moz-linear-gradient(center bottom, #e4e4e4 0%, #eeeeee 70%)
-    background-image: -o-linear-gradient(bottom, #e4e4e4 0%, #eeeeee 70%)
-    background-image: -ms-linear-gradient(top, #e4e4e4 0%, #eeeeee 70%)
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e4e4e4', endColorstr='#eeeeee',GradientType=0 )
-    background-image: linear-gradient(top, #e4e4e4 0%, #eeeeee 70%)
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #eeeeee), color-stop(0.48, #e8e8e8), color-stop(0.5, #f0f0f0), color-stop(0.8, #f4f4f4))
+    background-image: -webkit-linear-gradient(center bottom, #eeeeee 0%, #e8e8e8 48%, #f0f0f0 50%, #f4f4f4 80%)
+    background-image: -moz-linear-gradient(center bottom, #eeeeee 0%, #e8e8e8 48%, #f0f0f0 50%, #f4f4f4 80%)
+    background-image: -o-linear-gradient(top, #eeeeee 0%, #e8e8e8 48%, #f0f0f0 50%, #f4f4f4 80%)
+    background-image: -ms-linear-gradient(top, #eeeeee 0%, #e8e8e8 48%, #f0f0f0 50%, #f4f4f4 80%)
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#f4f4f4',GradientType=0 )
+    background-image: linear-gradient(top, #eeeeee 0%, #e8e8e8 48%, #f0f0f0 50%, #f4f4f4 80%)
+    -webkit-box-shadow: 0 0 2px white inset, 0 1px 0 rgba(0, 0, 0, 0.05)
+    -moz-box-shadow: 0 0 2px white inset, 0 1px 0 rgba(0, 0, 0, 0.05)
+    box-shadow: 0 0 2px white inset, 0 1px 0 rgba(0, 0, 0, 0.05)
     color: #333
-    border: 1px solid #b4b4b4
+    border: 1px solid #aaaaaa
     line-height: 13px
-    padding: 3px 19px 3px 6px
+    padding: 3px 20px 3px 5px
     margin: 3px 0 3px 5px
     position: relative
     span
@@ -213,7 +207,7 @@
 
 .chzn-container .chzn-results
   margin: 0 4px 4px 0
-  max-height: 190px
+  max-height: 240px
   padding: 0 0 0 4px
   position: relative
   overflow-x: hidden
@@ -226,15 +220,22 @@
 .chzn-container .chzn-results
   li
     display: none
-    line-height: 80%
-    padding: 7px 7px 8px
+    line-height: 15px
+    padding: 5px 6px
     margin: 0
     list-style: none
   .active-result
     cursor: pointer
     display: list-item
   .highlighted
-    background: #3875d7
+    background-color: #3875d7
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.1, #2a62bc), color-stop(0.8, #3875d7))
+    background-image: -webkit-linear-gradient(center bottom, #2a62bc 10%, #3875d7 80%)
+    background-image: -moz-linear-gradient(center bottom, #2a62bc 10%, #3875d7 80%)
+    background-image: -o-linear-gradient(bottom, #2a62bc 10%, #3875d7 80%)
+    background-image: -ms-linear-gradient(top, #2a62bc 10%, #3875d7 80%)
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2a62bc', endColorstr='#3875d7',GradientType=0 )
+    background-image: linear-gradient(top, #2a62bc 10%, #3875d7 80%)
     color: #fff
   li em
     background: #feffde
@@ -249,10 +250,31 @@
     color: #999
     font-weight: bold
   .group-option
-    padding-left: 20px
+    padding-left: 15px
 
 .chzn-container-multi .chzn-drop .result-selected
   display: none
+
+.chzn-container
+  .chzn-results-scroll
+    background: white
+    margin: 0px 4px
+    position: absolute
+    text-align: center
+    width: 321px
+    /* This should by dynamic with js
+    z-index: 1
+    span
+      display: inline-block
+      height: 17px
+      text-indent: -5000px
+      width: 9px
+  .chzn-results-scroll-down
+    bottom: 0
+    span
+      background: image-url('chosen-sprite.png') no-repeat -4px -3px
+  .chzn-results-scroll-up span
+    background: image-url('chosen-sprite.png') no-repeat -22px -3px
 
 /* @end
 
@@ -272,13 +294,13 @@
     -o-box-shadow: 0 1px 0 #fff inset
     box-shadow: 0 1px 0 #fff inset
     background-color: #eee
-    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, white), color-stop(0.5, #eeeeee))
-    background-image: -webkit-linear-gradient(center bottom, white 0%, #eeeeee 50%)
-    background-image: -moz-linear-gradient(center bottom, white 0%, #eeeeee 50%)
-    background-image: -o-linear-gradient(bottom, white 0%, #eeeeee 50%)
-    background-image: -ms-linear-gradient(top, white 0%, #eeeeee 50%)
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.2, white), color-stop(0.8, #eeeeee))
+    background-image: -webkit-linear-gradient(center bottom, white 20%, #eeeeee 80%)
+    background-image: -moz-linear-gradient(center bottom, white 20%, #eeeeee 80%)
+    background-image: -o-linear-gradient(bottom, white 20%, #eeeeee 80%)
+    background-image: -ms-linear-gradient(top, white 20%, #eeeeee 80%)
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#eeeeee',GradientType=0 )
-    background-image: linear-gradient(top, white 0%, #eeeeee 50%)
+    background-image: linear-gradient(top, white 20%, #eeeeee 80%)
     -webkit-border-bottom-left-radius: 0
     -webkit-border-bottom-right-radius: 0
     -moz-border-radius-bottomleft: 0
@@ -321,13 +343,8 @@
       margin-left: 26px
       margin-right: 0
     div
-      left: 0
+      left: 3px
       right: auto
-      border-left: none
-      border-right: 1px solid #aaaaaa
-      -webkit-border-radius: 4px 0 0 4px
-      -moz-border-radius: 4px 0 0 4px
-      border-radius: 4px 0 0 4px
     abbr
       left: 26px
       right: auto
@@ -335,10 +352,10 @@
     li
       float: right
     .search-choice
-      padding: 3px 6px 3px 19px
+      padding: 3px 5px 3px 19px
       margin: 3px 5px 3px 0
       .search-choice-close
-        left: 5px
+        left: 4px
         right: auto
         background-position: right top
   &.chzn-container-single .chzn-results
