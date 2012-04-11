@@ -16,7 +16,7 @@ Then run `bundle install`
 
 ### Include chosen javascript assets
 
-Add to your `app/assets/stylesheets/application.js` if use with jQuery
+Add to your `app/assets/javascripts/application.js` if use with jQuery
 
     //= require chosen-jquery
 
