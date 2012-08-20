@@ -30,7 +30,7 @@ Add to your `app/assets/stylesheets/application.css`
 
     *= require chosen
 
-## Gem maintainance
+## Gem maintenance
 
 Maintain `chosen-rails` gem with `Rake` commands.
 
