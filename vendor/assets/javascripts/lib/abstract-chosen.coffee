@@ -7,10 +7,9 @@ root = this
 class AbstractChosen
 
   constructor: (@form_field, @options={}) ->
-    this.set_default_values()
-    
     @is_multiple = @form_field.multiple
     this.set_default_text()
+    this.set_default_values()
 
     this.setup()
 
@@ -49,7 +48,10 @@ class AbstractChosen
   mouse_leave: -> @mouse_on_container = false
 
   input_focus: (evt) ->
-    setTimeout (=> this.container_mousedown()), 50 unless @active_field
+    if @is_multiple
+      setTimeout (=> this.container_mousedown()), 50 unless @active_field
+    else
+      @activate_field() unless @active_field
   
   input_blur: (evt) ->
     if not @mouse_on_container
