@@ -8,7 +8,7 @@
   *display: inline
   .chzn-drop
     background: #fff
-    border: 1px solid #aaa
+    border: 1px solid #aaaaaa
     border-top: 0
     position: absolute
     top: 29px
@@ -67,13 +67,13 @@
       right: 26px
       top: 6px
       width: 12px
-      height: 13px
+      height: 12px
       font-size: 1px
-      background: image-url('chosen-sprite.png') right top no-repeat
+      background: image-url('chosen-sprite.png') -42px 1px no-repeat
       &:hover
-        background-position: right -11px
+        background-position: -42px -10px
   &.chzn-disabled .chzn-single abbr:hover
-    background-position: right top
+    background-position: -42px -10px
   .chzn-single div
     position: absolute
     right: 0
@@ -82,7 +82,7 @@
     height: 100%
     width: 18px
     b
-      background: image-url('chosen-sprite.png') no-repeat 0 0
+      background: image-url('chosen-sprite.png') no-repeat 0px 2px
       display: block
       width: 100%
       height: 100%
@@ -93,16 +93,16 @@
     white-space: nowrap
     z-index: 1010
     input
-      background: white image-url('chosen-sprite.png') no-repeat 100% -22px
-      background: image-url('chosen-sprite.png') no-repeat 100% -22px, -webkit-gradient(linear, 0 0, 0 100%, color-stop(1%, #eeeeee), color-stop(15%, white))
-      background: image-url('chosen-sprite.png') no-repeat 100% -22px, -webkit-linear-gradient(top, #eeeeee 1%, white 15%)
-      background: image-url('chosen-sprite.png') no-repeat 100% -22px, -moz-linear-gradient(top, #eeeeee 1%, white 15%)
-      background: image-url('chosen-sprite.png') no-repeat 100% -22px, -o-linear-gradient(top, #eeeeee 1%, white 15%)
-      background: image-url('chosen-sprite.png') no-repeat 100% -22px, linear-gradient(#eeeeee 1%, white 15%)
+      background: white image-url('chosen-sprite.png') no-repeat 100% -20px
+      background: image-url('chosen-sprite.png') no-repeat 100% -20px, -webkit-gradient(linear, 0 0, 0 100%, color-stop(1%, #eeeeee), color-stop(15%, white))
+      background: image-url('chosen-sprite.png') no-repeat 100% -20px, -webkit-linear-gradient(top, #eeeeee 1%, white 15%)
+      background: image-url('chosen-sprite.png') no-repeat 100% -20px, -moz-linear-gradient(top, #eeeeee 1%, white 15%)
+      background: image-url('chosen-sprite.png') no-repeat 100% -20px, -o-linear-gradient(top, #eeeeee 1%, white 15%)
+      background: image-url('chosen-sprite.png') no-repeat 100% -20px, linear-gradient(#eeeeee 1%, white 15%)
       margin: 1px 0
       padding: 4px 20px 4px 5px
       outline: 0
-      border: 1px solid #aaa
+      border: 1px solid #aaaaaa
       font-family: sans-serif
       font-size: 1em
   .chzn-drop
@@ -128,7 +128,7 @@
   background-image: -moz-linear-gradient(top, #eeeeee 1%, white 15%)
   background-image: -o-linear-gradient(top, #eeeeee 1%, white 15%)
   background-image: linear-gradient(#eeeeee 1%, white 15%)
-  border: 1px solid #aaa
+  border: 1px solid #aaaaaa
   margin: 0
   padding: 0
   cursor: text
@@ -202,13 +202,13 @@
     right: 3px
     top: 4px
     width: 12px
-    height: 13px
+    height: 12px
     font-size: 1px
-    background: image-url('chosen-sprite.png') right top no-repeat
+    background: image-url('chosen-sprite.png') -42px 1px no-repeat
     &:hover
-      background-position: right -11px
+      background-position: -42px -10px
   .search-choice-focus .search-choice-close
-    background-position: right -11px
+    background-position: -42px -10px
 
 /* @end
 
@@ -296,10 +296,10 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3)
     border: 1px solid #5897fb
   .chzn-single-with-drop
-    border: 1px solid #aaa
-    -webkit-box-shadow: 0 1px 0 #fff inset
-    -moz-box-shadow: 0 1px 0 #fff inset
-    box-shadow: 0 1px 0 #fff inset
+    border: 1px solid #aaaaaa
+    -webkit-box-shadow: 0 1px 0 white inset
+    -moz-box-shadow: 0 1px 0 white inset
+    box-shadow: 0 1px 0 white inset
     background-color: #eee
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#ffffff', GradientType=0 )
     background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(20%, #eeeeee), color-stop(80%, white))
@@ -317,14 +317,14 @@
       background: transparent
       border-left: none
       b
-        background-position: -18px 1px
+        background-position: -18px 2px
   .chzn-choices
     -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3)
     -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3)
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3)
     border: 1px solid #5897fb
     .search-field input
-      color: #111 !important
+      color: #111111 !important
 
 /* @end
 
@@ -364,7 +364,6 @@
       .search-choice-close
         left: 4px
         right: auto
-        background-position: right top
   &.chzn-container-single .chzn-results
     margin: 0 0 4px 4px
     padding: 0 4px 0 0
@@ -374,13 +373,47 @@
   &.chzn-container-active .chzn-single-with-drop div
     border-right: none
   .chzn-search input
-    background: white image-url('chosen-sprite.png') no-repeat -38px -22px
-    background: image-url('chosen-sprite.png') no-repeat -38px -22px, -webkit-gradient(linear, 0 0, 0 100%, color-stop(1%, #eeeeee), color-stop(15%, white))
-    background: image-url('chosen-sprite.png') no-repeat -38px -22px, -webkit-linear-gradient(top, #eeeeee 1%, white 15%)
-    background: image-url('chosen-sprite.png') no-repeat -38px -22px, -moz-linear-gradient(top, #eeeeee 1%, white 15%)
-    background: image-url('chosen-sprite.png') no-repeat -38px -22px, -o-linear-gradient(top, #eeeeee 1%, white 15%)
-    background: image-url('chosen-sprite.png') no-repeat -38px -22px, linear-gradient(#eeeeee 1%, white 15%)
+    background: white image-url('chosen-sprite.png') no-repeat -30px -20px
+    background: image-url('chosen-sprite.png') no-repeat -30px -20px, -webkit-gradient(linear, 0 0, 0 100%, color-stop(1%, #eeeeee), color-stop(15%, white))
+    background: image-url('chosen-sprite.png') no-repeat -30px -20px, -webkit-linear-gradient(top, #eeeeee 1%, white 15%)
+    background: image-url('chosen-sprite.png') no-repeat -30px -20px, -moz-linear-gradient(top, #eeeeee 1%, white 15%)
+    background: image-url('chosen-sprite.png') no-repeat -30px -20px, -o-linear-gradient(top, #eeeeee 1%, white 15%)
+    background: image-url('chosen-sprite.png') no-repeat -30px -20px, linear-gradient(#eeeeee 1%, white 15%)
     padding: 4px 5px 4px 20px
     direction: rtl
+
+.chzn-container-single.chzn-rtl
+  .chzn-single div b
+    background-position: 6px 2px
+  .chzn-single-with-drop div b
+    background-position: -12px 2px
+
+/* @end
+
+/* @group Retina compatibility
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-resolution: 144dpi)
+  .chzn-rtl .chzn-search input
+    background-image: image-url('chosen-sprite@2x.png') !important
+    background-repeat: no-repeat !important
+    background-size: 52px 37px !important
+  .chzn-container-single
+    .chzn-single
+      abbr, div b
+        background-image: image-url('chosen-sprite@2x.png') !important
+        background-repeat: no-repeat !important
+        background-size: 52px 37px !important
+    .chzn-search input
+      background-image: image-url('chosen-sprite@2x.png') !important
+      background-repeat: no-repeat !important
+      background-size: 52px 37px !important
+  .chzn-container-multi .chzn-choices .search-choice .search-choice-close
+    background-image: image-url('chosen-sprite@2x.png') !important
+    background-repeat: no-repeat !important
+    background-size: 52px 37px !important
+  .chzn-container
+    .chzn-results-scroll-down span, .chzn-results-scroll-up span
+      background-image: image-url('chosen-sprite@2x.png') !important
+      background-repeat: no-repeat !important
+      background-size: 52px 37px !important
 
 /* @end
