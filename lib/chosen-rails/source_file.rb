@@ -8,6 +8,7 @@ class SourceFile < Thor
     self.destination_root = "vendor/assets"
     remote = "https://github.com/harvesthq/chosen"
     get "#{remote}/raw/master/chosen/chosen-sprite.png", "images/chosen-sprite.png"
+    get "#{remote}/raw/master/chosen/chosen-sprite@2x.png", "images/chosen-sprite@2x.png"
     get "#{remote}/raw/master/chosen/chosen.css", "stylesheets/chosen.css"
     get "#{remote}/raw/master/coffee/lib/abstract-chosen.coffee", "javascripts/lib/abstract-chosen.coffee"
     get "#{remote}/raw/master/coffee/lib/select-parser.coffee", "javascripts/lib/select-parser.coffee"
@@ -28,6 +29,7 @@ class SourceFile < Thor
     inside destination_root do
       run("sass-convert -F css -T sass stylesheets/chosen.css stylesheets/chosen.css.sass")
       gsub_file 'stylesheets/chosen.css.sass', '(chosen-sprite.png)', "('chosen-sprite.png')"
+      gsub_file 'stylesheets/chosen.css.sass', '(chosen-sprite@2x.png)', "('chosen-sprite@2x.png')"
       gsub_file 'stylesheets/chosen.css.sass', ' url', ' image-url'
     end
   end
