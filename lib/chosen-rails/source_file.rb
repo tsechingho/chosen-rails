@@ -15,12 +15,7 @@ class SourceFile < Thor
     get "#{remote}/raw/master/coffee/chosen.jquery.coffee", 'javascripts/chosen.jquery.coffee'
     get "#{remote}/raw/master/coffee/chosen.proto.coffee", 'javascripts/chosen.proto.coffee'
     get "#{remote}/raw/master/VERSION", 'VERSION'
-    inside destination_root do
-      version = File.read('VERSION').sub("\n", '')
-      gsub_file '../../lib/chosen-rails/version.rb', /VERSION\s=\s'(\d|\.)+'$/ do |match|
-        %Q{VERSION = '#{version}'}
-      end
-    end
+    bump_version
   end
 
   desc 'convert css to sass file', 'convert css to sass file by sass-convert'
@@ -39,5 +34,16 @@ class SourceFile < Thor
     self.destination_root = 'vendor/assets'
     remove_file 'stylesheets/chosen.css'
     remove_file 'VERSION'
+  end
+
+  protected
+
+  def bump_version
+    inside destination_root do
+      version = File.read('VERSION').sub("\n", '')
+      gsub_file '../../lib/chosen-rails/version.rb', /CHOSEN_VERSION\s=\s'(\d|\.)+'$/ do |match|
+        %Q{CHOSEN_VERSION = '#{version}'}
+      end
+    end
   end
 end
