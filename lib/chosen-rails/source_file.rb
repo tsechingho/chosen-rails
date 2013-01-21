@@ -4,9 +4,8 @@ class SourceFile < Thor
   include Thor::Actions
 
   desc 'fetch source files', 'fetch source files from GitHub'
-  def fetch
+  def fetch remote
     self.destination_root = 'vendor/assets'
-    remote = 'https://github.com/harvesthq/chosen'
     get "#{remote}/raw/master/chosen/chosen-sprite.png", 'images/chosen-sprite.png'
     get "#{remote}/raw/master/chosen/chosen-sprite@2x.png", 'images/chosen-sprite@2x.png'
     get "#{remote}/raw/master/chosen/chosen.css", 'stylesheets/chosen.css'
