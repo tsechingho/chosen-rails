@@ -4,16 +4,16 @@ class SourceFile < Thor
   include Thor::Actions
 
   desc 'fetch source files', 'fetch source files from GitHub'
-  def fetch remote
+  def fetch remote, branch
     self.destination_root = 'vendor/assets'
-    get "#{remote}/raw/master/chosen/chosen-sprite.png", 'images/chosen-sprite.png'
-    get "#{remote}/raw/master/chosen/chosen-sprite@2x.png", 'images/chosen-sprite@2x.png'
-    get "#{remote}/raw/master/chosen/chosen.css", 'stylesheets/chosen.css'
-    get "#{remote}/raw/master/coffee/lib/abstract-chosen.coffee", 'javascripts/lib/abstract-chosen.coffee'
-    get "#{remote}/raw/master/coffee/lib/select-parser.coffee", 'javascripts/lib/select-parser.coffee'
-    get "#{remote}/raw/master/coffee/chosen.jquery.coffee", 'javascripts/chosen.jquery.coffee'
-    get "#{remote}/raw/master/coffee/chosen.proto.coffee", 'javascripts/chosen.proto.coffee'
-    get "#{remote}/raw/master/VERSION", 'VERSION'
+    get "#{remote}/raw/#{branch}/chosen/chosen-sprite.png", 'images/chosen-sprite.png'
+    get "#{remote}/raw/#{branch}/chosen/chosen-sprite@2x.png", 'images/chosen-sprite@2x.png'
+    get "#{remote}/raw/#{branch}/chosen/chosen.css", 'stylesheets/chosen.css'
+    get "#{remote}/raw/#{branch}/coffee/lib/abstract-chosen.coffee", 'javascripts/lib/abstract-chosen.coffee'
+    get "#{remote}/raw/#{branch}/coffee/lib/select-parser.coffee", 'javascripts/lib/select-parser.coffee'
+    get "#{remote}/raw/#{branch}/coffee/chosen.jquery.coffee", 'javascripts/chosen.jquery.coffee'
+    get "#{remote}/raw/#{branch}/coffee/chosen.proto.coffee", 'javascripts/chosen.proto.coffee'
+    get "#{remote}/raw/#{branch}/VERSION", 'VERSION'
     bump_version
   end
 
