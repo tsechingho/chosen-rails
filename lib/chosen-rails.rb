@@ -2,7 +2,7 @@ require 'chosen-rails/version'
 
 module Chosen
   module Rails
-    if ::Rails.version < '3.1'
+    if ::Rails.version.to_s < '3.1'
       require 'chosen-rails/railtie'
     else
       require 'chosen-rails/engine'
