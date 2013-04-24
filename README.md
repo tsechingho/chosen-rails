@@ -48,11 +48,19 @@ And this file must be included in `application.js`
 
 Also add the class to your form field
 
-    <%= f.select :author, User.all.map { |u| [u.name, u.id] }, { include_blank: true }, { class: 'chzn-select' } %>
+    <%= f.select :author,
+      User.all.map { |u| [u.name, u.id] },
+      { include_blank: true },
+      { class: 'chzn-select' }
+    %>
 
 If you use simple form as form builder
 
-    <%= f.association :author, collection: User.all, include_blank: true, input_html: { class: 'chzn-select' } %>
+    <%= f.association :author,
+      collection: User.all,
+      include_blank: true,
+      input_html: { class: 'chzn-select' }
+    %>
 
 ## Gem maintenance
 
