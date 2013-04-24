@@ -4,19 +4,26 @@
   font-size: 13px
   position: relative
   display: inline-block
+  vertical-align: middle
   zoom: 1
   *display: inline
   .chzn-drop
     background: #fff
-    border: 1px solid #aaaaaa
+    border: 1px solid #aaa
     border-top: 0
     position: absolute
-    top: 29px
+    top: 100%
     left: 0
     -webkit-box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15)
     -moz-box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15)
     box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15)
     z-index: 1010
+    width: 100%
+    -moz-box-sizing: border-box
+    -ms-box-sizing: border-box
+    -webkit-box-sizing: border-box
+    -khtml-box-sizing: border-box
+    box-sizing: border-box
 
 /* @end
 
@@ -102,10 +109,17 @@
       margin: 1px 0
       padding: 4px 20px 4px 5px
       outline: 0
-      border: 1px solid #aaaaaa
+      border: 1px solid #aaa
       font-family: sans-serif
       font-size: 1em
+      width: 100%
+      -moz-box-sizing: border-box
+      -ms-box-sizing: border-box
+      -webkit-box-sizing: border-box
+      -khtml-box-sizing: border-box
+      box-sizing: border-box
   .chzn-drop
+    margin-top: -1px
     -webkit-border-radius: 0 0 4px 4px
     -moz-border-radius: 0 0 4px 4px
     border-radius: 0 0 4px 4px
@@ -113,11 +127,11 @@
     -webkit-background-clip: padding-box
     background-clip: padding-box
 
-/* @end
-
-.chzn-container-single-nosearch .chzn-search input
+.chzn-container-single-nosearch .chzn-search
   position: absolute
-  left: -9000px
+  left: -9999px
+
+/* @end
 
 /* @group Multi Chosen
 
@@ -128,7 +142,7 @@
   background-image: -moz-linear-gradient(top, #eeeeee 1%, white 15%)
   background-image: -o-linear-gradient(top, #eeeeee 1%, white 15%)
   background-image: linear-gradient(#eeeeee 1%, white 15%)
-  border: 1px solid #aaaaaa
+  border: 1px solid #aaa
   margin: 0
   padding: 0
   cursor: text
@@ -136,6 +150,12 @@
   height: auto !important
   height: 1%
   position: relative
+  width: 100%
+  -moz-box-sizing: border-box
+  -ms-box-sizing: border-box
+  -webkit-box-sizing: border-box
+  -khtml-box-sizing: border-box
+  box-sizing: border-box
   li
     float: left
     list-style: none
@@ -224,7 +244,7 @@
   -webkit-overflow-scrolling: touch
 
 .chzn-container-multi .chzn-results
-  margin: -1px 0 0
+  margin: 0
   padding: 0
 
 .chzn-container .chzn-results
@@ -296,10 +316,10 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3)
     border: 1px solid #5897fb
   .chzn-single-with-drop
-    border: 1px solid #aaaaaa
-    -webkit-box-shadow: 0 1px 0 white inset
-    -moz-box-shadow: 0 1px 0 white inset
-    box-shadow: 0 1px 0 white inset
+    border: 1px solid #aaa
+    -webkit-box-shadow: 0 1px 0 #fff inset
+    -moz-box-shadow: 0 1px 0 #fff inset
+    box-shadow: 0 1px 0 #fff inset
     background-color: #eee
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#ffffff', GradientType=0 )
     background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(20%, #eeeeee), color-stop(80%, white))
@@ -324,7 +344,7 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3)
     border: 1px solid #5897fb
     .search-field input
-      color: #111111 !important
+      color: #111 !important
 
 /* @end
 

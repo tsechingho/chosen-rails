@@ -7,6 +7,7 @@ root = this
 class AbstractChosen
 
   constructor: (@form_field, @options={}) ->
+    return unless AbstractChosen.browser_is_supported()
     @is_multiple = @form_field.multiple
     this.set_default_text()
     this.set_default_values()
@@ -40,11 +41,11 @@ class AbstractChosen
     if @form_field.getAttribute("data-placeholder")
       @default_text = @form_field.getAttribute("data-placeholder")
     else if @is_multiple
-      @default_text = @options.placeholder_text_multiple || @options.placeholder_text || "Select Some Options"
+      @default_text = @options.placeholder_text_multiple || @options.placeholder_text || AbstractChosen.default_multiple_text
     else
-      @default_text = @options.placeholder_text_single || @options.placeholder_text || "Select an Option"
+      @default_text = @options.placeholder_text_single || @options.placeholder_text || AbstractChosen.default_single_text
 
-    @results_none_found = @form_field.getAttribute("data-no_results_text") || @options.no_results_text || "No results match"
+    @results_none_found = @form_field.getAttribute("data-no_results_text") || @options.no_results_text || AbstractChosen.default_no_result_text
 
   mouse_enter: -> @mouse_on_container = true
   mouse_leave: -> @mouse_on_container = false
@@ -76,6 +77,7 @@ class AbstractChosen
       ""
 
   results_update_field: ->
+    this.set_default_text()
     this.results_reset_cleanup() if not @is_multiple
     this.result_clear_highlight()
     @result_single_selected = null
@@ -123,5 +125,29 @@ class AbstractChosen
     chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     rand = Math.floor(Math.random() * chars.length)
     newchar = chars.substring rand, rand+1
+
+  container_width: ->
+    return @options.width if @options.width?
+      
+    width = if window.getComputedStyle?
+      parseFloat window.getComputedStyle(@form_field).getPropertyValue('width')
+    else if jQuery?
+      @form_field_jq.outerWidth()
+    else
+      @form_field.getWidth()
+
+    width + "px"
+
+  # class methods and variables ============================================================ 
+
+  @browser_is_supported: ->
+    if window.navigator.appName == "Microsoft Internet Explorer"
+      return null isnt document.documentMode >= 8
+    return true
+
+  @default_multiple_text: "Select Some Options"
+  @default_single_text: "Select an Option"
+  @default_no_result_text: "No results match"
+
 
 root.AbstractChosen = AbstractChosen
