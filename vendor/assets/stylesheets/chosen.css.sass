@@ -13,7 +13,7 @@
     border-top: 0
     position: absolute
     top: 100%
-    left: 0
+    left: -9999px
     -webkit-box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15)
     -moz-box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15)
     box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15)
@@ -24,6 +24,8 @@
     -webkit-box-sizing: border-box
     -khtml-box-sizing: border-box
     box-sizing: border-box
+  &.chzn-with-drop .chzn-drop
+    left: 0
 
 /* @end
 
@@ -315,7 +317,7 @@
     -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3)
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3)
     border: 1px solid #5897fb
-  .chzn-single-with-drop
+  &.chzn-with-drop .chzn-single
     border: 1px solid #aaa
     -webkit-box-shadow: 0 1px 0 #fff inset
     -moz-box-shadow: 0 1px 0 #fff inset
@@ -384,13 +386,19 @@
       .search-choice-close
         left: 4px
         right: auto
+  .chzn-search
+    left: 9999px
+  &.chzn-with-drop .chzn-search
+    left: 0px
+  .chzn-drop
+    left: 9999px
   &.chzn-container-single .chzn-results
     margin: 0 0 4px 4px
     padding: 0 4px 0 0
   .chzn-results .group-option
     padding-left: 0
     padding-right: 15px
-  &.chzn-container-active .chzn-single-with-drop div
+  &.chzn-container-active.chzn-with-drop .chzn-single div
     border-right: none
   .chzn-search input
     background: white image-url('chosen-sprite.png') no-repeat -30px -20px
@@ -405,7 +413,7 @@
 .chzn-container-single.chzn-rtl
   .chzn-single div b
     background-position: 6px 2px
-  .chzn-single-with-drop div b
+  &.chzn-with-drop .chzn-single div b
     background-position: -12px 2px
 
 /* @end
