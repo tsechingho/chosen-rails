@@ -1,4 +1,5 @@
 require 'thor'
+require 'json'
 
 class SourceFile < Thor
   include Thor::Actions
@@ -13,7 +14,7 @@ class SourceFile < Thor
     get "#{remote}/raw/#{branch}/coffee/lib/select-parser.coffee", 'javascripts/lib/select-parser.coffee'
     get "#{remote}/raw/#{branch}/coffee/chosen.jquery.coffee", 'javascripts/chosen.jquery.coffee'
     get "#{remote}/raw/#{branch}/coffee/chosen.proto.coffee", 'javascripts/chosen.proto.coffee'
-    get "#{remote}/raw/#{branch}/VERSION", 'VERSION'
+    get "#{remote}/raw/#{branch}/package.json", 'package.json'
     bump_version
   end
 
@@ -32,14 +33,15 @@ class SourceFile < Thor
   def cleanup
     self.destination_root = 'vendor/assets'
     remove_file 'stylesheets/chosen.css'
-    remove_file 'VERSION'
+    remove_file 'package.json'
   end
 
   protected
 
   def bump_version
     inside destination_root do
-      version = File.read('VERSION').sub("\n", '')
+      package_json = JSON.load(File.open('package.json'))
+      version = package_json['version']
       gsub_file '../../lib/chosen-rails/version.rb', /CHOSEN_VERSION\s=\s'(\d|\.)+'$/ do |match|
         %Q{CHOSEN_VERSION = '#{version}'}
       end
