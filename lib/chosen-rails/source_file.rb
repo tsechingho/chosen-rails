@@ -1,4 +1,5 @@
 require 'thor'
+require 'active_support/all'
 
 class SourceFile < Thor
   include Thor::Actions
@@ -6,14 +7,14 @@ class SourceFile < Thor
   desc 'fetch source files', 'fetch source files from GitHub'
   def fetch remote, branch
     self.destination_root = 'vendor/assets'
-    get "#{remote}/raw/#{branch}/chosen/chosen-sprite.png", 'images/chosen-sprite.png'
-    get "#{remote}/raw/#{branch}/chosen/chosen-sprite@2x.png", 'images/chosen-sprite@2x.png'
-    get "#{remote}/raw/#{branch}/chosen/chosen.css", 'stylesheets/chosen.css'
+    get "#{remote}/raw/#{branch}/public/chosen-sprite.png", 'images/chosen-sprite.png'
+    get "#{remote}/raw/#{branch}/public/chosen-sprite@2x.png", 'images/chosen-sprite@2x.png'
+    get "#{remote}/raw/#{branch}/public/chosen.css", 'stylesheets/chosen.css'
     get "#{remote}/raw/#{branch}/coffee/lib/abstract-chosen.coffee", 'javascripts/lib/abstract-chosen.coffee'
     get "#{remote}/raw/#{branch}/coffee/lib/select-parser.coffee", 'javascripts/lib/select-parser.coffee'
     get "#{remote}/raw/#{branch}/coffee/chosen.jquery.coffee", 'javascripts/chosen.jquery.coffee'
     get "#{remote}/raw/#{branch}/coffee/chosen.proto.coffee", 'javascripts/chosen.proto.coffee'
-    get "#{remote}/raw/#{branch}/VERSION", 'VERSION'
+    get "#{remote}/raw/#{branch}/chosen.jquery.json", 'chosen.jquery.json'
     bump_version
   end
 
@@ -32,14 +33,15 @@ class SourceFile < Thor
   def cleanup
     self.destination_root = 'vendor/assets'
     remove_file 'stylesheets/chosen.css'
-    remove_file 'VERSION'
+    remove_file 'chosen.jquery.json'
   end
 
   protected
 
   def bump_version
     inside destination_root do
-      version = File.read('VERSION').sub("\n", '')
+      package = ActiveSupport::JSON.decode(File.read('chosen.jquery.json'))
+      version = package['version']
       gsub_file '../../lib/chosen-rails/version.rb', /CHOSEN_VERSION\s=\s'(\d|\.)+'$/ do |match|
         %Q{CHOSEN_VERSION = '#{version}'}
       end
