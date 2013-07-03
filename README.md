@@ -37,8 +37,8 @@ Add to one coffee script file, like `scaffold.js.coffee`
     $ ->
       # enable chosen js
       $('.chzn-select').chosen
-        allow_single_deselect: true
-        no_results_text: 'No results matched'
+        allow_single_deselect: true,
+        no_results_text: 'No results matched',
         width: '200px'
 
 Notice: `width` option is required since `Chosen 0.9.15`.
