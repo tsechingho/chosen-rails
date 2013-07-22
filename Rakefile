@@ -8,6 +8,5 @@ task 'update-chosen', 'remote', 'branch' do |task, args|
   branch = args['branch'] || 'master'
   files = SourceFile.new
   files.fetch remote, branch
-  files.convert
   files.cleanup
 end
