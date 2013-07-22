@@ -13,3 +13,5 @@ when /^3\.[12]/
 when /^3\.[0]/
   require 'chosen-rails/railtie'
 end
+
+require 'compass-rails'
