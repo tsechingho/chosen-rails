@@ -64,6 +64,10 @@ If you use simple form as form builder
       input_html: { class: 'chzn-select' }
     %>
 
+### Deployment
+
+Since version 0.13.0, non-digested assets of `chosen-rails` will simply be copied from digested assets.
+
 ## Gem maintenance
 
 Maintain `chosen-rails` gem with `Rake` commands.
