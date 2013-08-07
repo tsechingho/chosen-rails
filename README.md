@@ -44,7 +44,7 @@ Add to one coffee script file, like `scaffold.js.coffee`
 
     $ ->
       # enable chosen js
-      $('.chzn-select').chosen
+      $('.chosen-select').chosen
         allow_single_deselect: true
         no_results_text: 'No results matched'
         width: '200px'
@@ -61,7 +61,7 @@ Also add the class to your form field
     <%= f.select :author,
       User.all.map { |u| [u.name, u.id] },
       { include_blank: true },
-      { class: 'chzn-select' }
+      { class: 'chosen-select' }
     %>
 
 If you use simple form as form builder
@@ -69,7 +69,7 @@ If you use simple form as form builder
     <%= f.association :author,
       collection: User.all,
       include_blank: true,
-      input_html: { class: 'chzn-select' }
+      input_html: { class: 'chosen-select' }
     %>
 
 ### Deployment
