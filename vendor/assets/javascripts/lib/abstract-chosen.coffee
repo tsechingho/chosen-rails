@@ -1,5 +1,3 @@
-root = this
-
 class AbstractChosen
 
   constructor: (@form_field, @options={}) ->
@@ -12,8 +10,6 @@ class AbstractChosen
 
     this.set_up_html()
     this.register_observers()
-
-    this.finish_setup()
 
   set_default_values: ->
     @click_test_action = (evt) => this.test_active_click(evt)
@@ -32,6 +28,8 @@ class AbstractChosen
     @single_backstroke_delete = if @options.single_backstroke_delete? then @options.single_backstroke_delete else true
     @max_selected_options = @options.max_selected_options || Infinity
     @inherit_select_classes = @options.inherit_select_classes || false
+    @display_selected_options = if @options.display_selected_options? then @options.display_selected_options else true
+    @display_disabled_options = if @options.display_disabled_options? then @options.display_disabled_options else true
 
   set_default_text: ->
     if @form_field.getAttribute("data-placeholder")
@@ -60,9 +58,9 @@ class AbstractChosen
   results_option_build: (options) ->
     content = ''
     for data in @results_data
-      if data.group && (data.search_match || data.group_match)
+      if data.group
         content += this.result_add_group data
-      else if !data.empty && data.search_match
+      else
         content += this.result_add_option data
 
       # this select logic pins on an awkward flag
@@ -76,6 +74,9 @@ class AbstractChosen
     content
 
   result_add_option: (option) ->
+    return '' unless option.search_match
+    return '' unless this.include_option_in_results(option)
+
     classes = []
     classes.push "active-result" if !option.disabled and !(option.selected and @is_multiple)
     classes.push "disabled-result" if option.disabled and !(option.selected and @is_multiple)
@@ -83,12 +84,23 @@ class AbstractChosen
     classes.push "group-option" if option.group_array_index?
     classes.push option.classes if option.classes != ""
 
-    style = if option.style.cssText != "" then " style=\"#{option.style}\"" else ""
+    option_el = document.createElement("li")
+    option_el.className = classes.join(" ")
+    option_el.style.cssText = option.style
+    option_el.setAttribute("data-option-array-index", option.array_index)
+    option_el.innerHTML = option.search_text
 
-    """<li class="#{classes.join(' ')}"#{style} data-option-array-index="#{option.array_index}">#{option.search_text}</li>"""
+    this.outerHTML(option_el)
 
   result_add_group: (group) ->
-    """<li class="group-result">#{group.search_text}</li>"""
+    return '' unless group.search_match || group.group_match
+    return '' unless group.active_options > 0
+
+    group_el = document.createElement("li")
+    group_el.className = "group-result"
+    group_el.innerHTML = group.search_text
+
+    this.outerHTML(group_el)
 
   results_update_field: ->
     this.set_default_text()
@@ -116,21 +128,32 @@ class AbstractChosen
     results = 0
 
     searchText = this.get_search_text()
+    escapedSearchText = searchText.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&")
     regexAnchor = if @search_contains then "" else "^"
-    regex = new RegExp(regexAnchor + searchText.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), 'i')
-    zregex = new RegExp(searchText.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), 'i')
+    regex = new RegExp(regexAnchor + escapedSearchText, 'i')
+    zregex = new RegExp(escapedSearchText, 'i')
 
     for option in @results_data
-      if not option.empty
 
-        option.group_match = false if option.group
+      option.search_match = false
+      results_group = null
 
+      if this.include_option_in_results(option)
+
+        if option.group
+          option.group_match = false
+          option.active_options = 0
+
+        if option.group_array_index? and @results_data[option.group_array_index]
+          results_group = @results_data[option.group_array_index]
+          results += 1 if results_group.active_options is 0 and results_group.search_match
+          results_group.active_options += 1
+                
         unless option.group and not @group_search
-          option.search_match = false
 
           option.search_text = if option.group then option.label else option.html
           option.search_match = this.search_string_match(option.search_text, regex)
-          results += 1 if option.search_match
+          results += 1 if option.search_match and not option.group
 
           if option.search_match
             if searchText.length
@@ -138,14 +161,15 @@ class AbstractChosen
               text = option.search_text.substr(0, startpos + searchText.length) + '</em>' + option.search_text.substr(startpos + searchText.length)
               option.search_text = text.substr(0, startpos) + '<em>' + text.substr(startpos)
 
-            @results_data[option.group_array_index].group_match = true if option.group_array_index?
+            results_group.group_match = true if results_group?
           
           else if option.group_array_index? and @results_data[option.group_array_index].search_match
             option.search_match = true
 
+    this.result_clear_highlight()
+
     if results < 1 and searchText.length
       this.update_results_content ""
-      this.result_clear_highlight()
       this.no_results searchText
     else
       this.update_results_content this.results_option_build()
@@ -199,15 +223,44 @@ class AbstractChosen
   container_width: ->
     return if @options.width? then @options.width else "#{@form_field.offsetWidth}px"
 
+  include_option_in_results: (option) ->
+    return false if @is_multiple and (not @display_selected_options and option.selected)
+    return false if not @display_disabled_options and option.disabled
+    return false if option.empty
+
+    return true
+
+  search_results_touchstart: (evt) ->
+    @touch_started = true
+    this.search_results_mouseover(evt)
+
+  search_results_touchmove: (evt) ->
+    @touch_started = false
+    this.search_results_mouseout(evt)
+
+  search_results_touchend: (evt) ->
+    this.search_results_mouseup(evt) if @touch_started
+
+  outerHTML: (element) ->
+    return element.outerHTML if element.outerHTML
+    tmp = document.createElement("div")
+    tmp.appendChild(element)
+    tmp.innerHTML
+
   # class methods and variables ============================================================ 
 
   @browser_is_supported: ->
     if window.navigator.appName == "Microsoft Internet Explorer"
-      return null isnt document.documentMode >= 8
+      return document.documentMode >= 8
+    if /iP(od|hone)/i.test(window.navigator.userAgent)
+      return false
+    if /Android/i.test(window.navigator.userAgent)
+      return false if /Mobile/i.test(window.navigator.userAgent)
     return true
 
   @default_multiple_text: "Select Some Options"
   @default_single_text: "Select an Option"
   @default_no_result_text: "No results match"
 
-root.AbstractChosen = AbstractChosen
+
+window.AbstractChosen = AbstractChosen
