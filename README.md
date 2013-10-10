@@ -12,13 +12,13 @@ Include `chosen-rails` in Gemefile
 
     gem 'chosen-rails'
 
-For Rails 4 project, it is required to add [compass-rails](https://github.com/Compass/compass-rails) gem explicitly and use unofficial branch for [compatible issue](https://github.com/Compass/compass-rails/pull/59).
+For Rails 4 project, it is required to add [compass-rails](https://github.com/Compass/compass-rails) gem explicitly.
 
+    gem 'compass-rails', github: 'Compass/compass-rails'
 
-```ruby
-# gem 'compass-rails', github: 'Compass/compass-rails', branch: 'rails4'
-gem 'compass-rails', github: 'milgner/compass-rails', branch: 'rails4'
-```
+Or use the prerelease gem
+
+    gem 'compass-rails', '~> 2.0.alpha.0'
 
 Then run `bundle install`
 
