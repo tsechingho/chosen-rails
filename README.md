@@ -12,14 +12,6 @@ Include `chosen-rails` in Gemefile
 
     gem 'chosen-rails'
 
-For Rails 4 project, it is required to add [compass-rails](https://github.com/Compass/compass-rails) gem explicitly.
-
-    gem 'compass-rails', github: 'Compass/compass-rails'
-
-Or use the prerelease gem
-
-    gem 'compass-rails', '~> 2.0.alpha.0'
-
 Then run `bundle install`
 
 ### Include chosen javascript assets
