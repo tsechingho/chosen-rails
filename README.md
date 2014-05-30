@@ -11,6 +11,10 @@ The `chosen-rails` gem integrates the `Chosen` with the Rails asset pipeline.
 Include `chosen-rails` in Gemefile
 
     gem 'chosen-rails'
+    
+If you are using Rails 4, include `jquery-turbolinks` also in your Gemfile
+
+    gem 'jquery-turbolinks'
 
 Then run `bundle install`
 
