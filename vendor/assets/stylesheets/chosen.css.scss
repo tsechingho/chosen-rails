@@ -14,12 +14,14 @@ $chosen-sprite-retina: image-url('chosen-sprite@2x.png') !default;
   zoom: 1;
   *display: inline;
   @include user-select(none);
+  * {
+    @include box-sizing(border-box);
+  }
   .chosen-drop {
     position: absolute;
     top: 100%;
     left: -9999px;
     z-index: 1010;
-    @include box-sizing(border-box);
     width: 100%;
     border: 1px solid #aaa;
     border-top: 0;
@@ -42,7 +44,7 @@ $chosen-sprite-retina: image-url('chosen-sprite@2x.png') !default;
     display: block;
     overflow: hidden;
     padding: 0 0 0 8px;
-    height: 23px;
+    height: 25px;
     border: 1px solid #aaa;
     border-radius: 5px;
     background-color: #fff;
@@ -104,7 +106,6 @@ $chosen-sprite-retina: image-url('chosen-sprite@2x.png') !default;
     padding: 3px 4px;
     white-space: nowrap;
     input[type="text"] {
-      @include box-sizing(border-box);
       margin: 1px 0;
       padding: 4px 20px 4px 5px;
       width: 100%;
@@ -147,6 +148,7 @@ $chosen-sprite-retina: image-url('chosen-sprite@2x.png') !default;
     padding: 5px 6px;
     list-style: none;
     line-height: 15px;
+    word-wrap: break-word;
     -webkit-touch-callout: none;
     &.active-result {
       display: list-item;
@@ -188,9 +190,8 @@ $chosen-sprite-retina: image-url('chosen-sprite@2x.png') !default;
   .chosen-choices {
     position: relative;
     overflow: hidden;
-    @include box-sizing(border-box);
     margin: 0;
-    padding: 0;
+    padding: 0 5px;
     width: 100%;
     height: auto !important;
     height: 1%;
@@ -208,8 +209,8 @@ $chosen-sprite-retina: image-url('chosen-sprite@2x.png') !default;
       white-space: nowrap;
       input[type="text"] {
         margin: 1px 0;
-        padding: 5px;
-        height: 15px;
+        padding: 0;
+        height: 25px;
         outline: 0;
         border: 0 !important;
         background: transparent !important;
@@ -223,17 +224,23 @@ $chosen-sprite-retina: image-url('chosen-sprite@2x.png') !default;
     }
     &.search-choice {
       position: relative;
-      margin: 3px 0 3px 5px;
+      margin: 3px 5px 3px 0;
       padding: 3px 20px 3px 5px;
       border: 1px solid #aaa;
+      max-width: 100%;
       border-radius: 3px;
-      background-color: #e4e4e4;
+      background-color: #eeeeee;
       @include background-image(linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eee 100%));
+      background-size: 100% 19px;
+      background-repeat: repeat-x;
       background-clip: padding-box;
       box-shadow: 0 0 2px #fff inset, 0 1px 0 rgba(#000,.05);
       color: #333;
       line-height: 13px;
       cursor: default;
+      span {
+        word-wrap: break-word;
+      }
       .search-choice-close {
         position: absolute;
         top: 4px;
