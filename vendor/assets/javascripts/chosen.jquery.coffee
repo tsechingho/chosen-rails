@@ -8,9 +8,9 @@ $.fn.extend({
     this.each (input_field) ->
       $this = $ this
       chosen = $this.data('chosen')
-      if options is 'destroy' && chosen
+      if options is 'destroy' && chosen instanceof Chosen
         chosen.destroy()
-      else unless chosen
+      else unless chosen instanceof Chosen
         $this.data('chosen', new Chosen(this, options))
 
       return
@@ -66,6 +66,9 @@ class Chosen extends AbstractChosen
     @form_field_jq.trigger("chosen:ready", {chosen: this})
 
   register_observers: ->
+    @container.bind 'touchstart.chosen', (evt) => this.container_mousedown(evt); return
+    @container.bind 'touchend.chosen', (evt) => this.container_mouseup(evt); return
+
     @container.bind 'mousedown.chosen', (evt) => this.container_mousedown(evt); return
     @container.bind 'mouseup.chosen', (evt) => this.container_mouseup(evt); return
     @container.bind 'mouseenter.chosen', (evt) => this.mouse_enter(evt); return
@@ -138,7 +141,7 @@ class Chosen extends AbstractChosen
     this.results_reset(evt) if evt.target.nodeName is "ABBR" and not @is_disabled
 
   search_results_mousewheel: (evt) ->
-    delta = -evt.originalEvent.wheelDelta or evt.originalEvent.detail if evt.originalEvent
+    delta = evt.originalEvent.deltaY or -evt.originalEvent.wheelDelta or evt.originalEvent.detail if evt.originalEvent
     if delta?
       evt.preventDefault()
       delta = delta * 40 if evt.type is 'DOMMouseScroll'
@@ -396,7 +399,6 @@ class Chosen extends AbstractChosen
     if @search_field.val() is @default_text then "" else $('<div/>').text($.trim(@search_field.val())).html()
 
   winnow_results_set_highlight: ->
-
     selected_results = if not @is_multiple then @search_results.find(".result-selected.active-result") else []
     do_high = if selected_results.length then selected_results.first() else @search_results.find(".active-result").first()
 
@@ -463,7 +465,10 @@ class Chosen extends AbstractChosen
         @mouse_on_container = false
         break
       when 13
-        evt.preventDefault()
+        evt.preventDefault() if this.results_showing
+        break
+      when 32
+        evt.preventDefault() if @disable_search
         break
       when 38
         evt.preventDefault()
