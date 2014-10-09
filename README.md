@@ -10,7 +10,9 @@ The `chosen-rails` gem integrates the `Chosen` with the Rails asset pipeline.
 
 Include `chosen-rails` in Gemefile
 
-    gem 'chosen-rails'
+```rb
+gem 'chosen-rails'
+```
 
 Then run `bundle install`
 
@@ -18,51 +20,65 @@ Then run `bundle install`
 
 Add to your `app/assets/javascripts/application.js` if use with jQuery
 
-    //= require chosen-jquery
+```coffee
+//= require chosen-jquery
+```
 
 Or with Prototype
 
-    //= require chosen-prototype
+```coffee
+//= require chosen-prototype
+```
 
 ### Include chosen stylesheet assets
 
 Add to your `app/assets/stylesheets/application.css`
 
-    *= require chosen
+```scss
+*= require chosen
+```
 
 ### Enable chosen javascript by specific css class
 
 Add to one coffee script file, like `scaffold.js.coffee`
 
-    $ ->
-      # enable chosen js
-      $('.chosen-select').chosen
-        allow_single_deselect: true
-        no_results_text: 'No results matched'
-        width: '200px'
+```coffee
+$ ->
+  # enable chosen js
+  $('.chosen-select').chosen
+    allow_single_deselect: true
+    no_results_text: 'No results matched'
+    width: '200px'
+```
 
 Notice: `width` option is required since `Chosen 0.9.15`.
 
 And this file must be included in `application.js`
 
-    //= require chosen-jquery
-    //= require scaffold
+```coffee
+//= require chosen-jquery
+//= require scaffold
+```
 
 Also add the class to your form field
 
-    <%= f.select :author,
-      User.all.map { |u| [u.name, u.id] },
-      { include_blank: true },
-      { class: 'chosen-select' }
-    %>
+```erb
+<%= f.select :author,
+  User.all.map { |u| [u.name, u.id] },
+               { include_blank: true },
+               { class: 'chosen-select' }
+%>
+```
 
 If you use simple form as form builder
 
-    <%= f.association :author,
-      collection: User.all,
-      include_blank: true,
-      input_html: { class: 'chosen-select' }
-    %>
+```erb
+<%= f.association :author, 
+                  collection: User.all,
+                  include_blank: true,
+                  input_html: { class: 'chosen-select' }
+%>
+```
 
 ### Deployment
 
@@ -74,11 +90,15 @@ Maintain `chosen-rails` gem with `Rake` commands.
 
 Update origin chosen source files.
 
-    rake update-chosen
+```bash
+rake update-chosen
+```
 
 Publish gem.
 
-    rake release
+```bash
+rake release
+```
 
 ## License
 
