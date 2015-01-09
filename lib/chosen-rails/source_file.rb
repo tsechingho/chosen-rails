@@ -9,7 +9,7 @@ class SourceFile < Thor
     self.destination_root = 'vendor/assets'
     get "#{remote}/raw/#{branch}/public/chosen-sprite.png", 'images/chosen-sprite.png'
     get "#{remote}/raw/#{branch}/public/chosen-sprite@2x.png", 'images/chosen-sprite@2x.png'
-    get "#{remote}/raw/#{branch}/sass/chosen.scss", 'stylesheets/chosen.css.scss'
+    get "#{remote}/raw/#{branch}/sass/chosen.scss", 'stylesheets/chosen.scss'
     get "#{remote}/raw/#{branch}/coffee/lib/abstract-chosen.coffee", 'javascripts/lib/abstract-chosen.coffee'
     get "#{remote}/raw/#{branch}/coffee/lib/select-parser.coffee", 'javascripts/lib/select-parser.coffee'
     get "#{remote}/raw/#{branch}/coffee/chosen.jquery.coffee", 'javascripts/chosen.jquery.coffee'
