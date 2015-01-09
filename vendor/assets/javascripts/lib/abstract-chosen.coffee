@@ -10,6 +10,8 @@ class AbstractChosen
 
     this.set_up_html()
     this.register_observers()
+    # instantiation done, fire ready
+    this.on_ready()
 
   set_default_values: ->
     @click_test_action = (evt) => this.test_active_click(evt)
@@ -29,6 +31,7 @@ class AbstractChosen
     @inherit_select_classes = @options.inherit_select_classes || false
     @display_selected_options = if @options.display_selected_options? then @options.display_selected_options else true
     @display_disabled_options = if @options.display_disabled_options? then @options.display_disabled_options else true
+    @include_group_label_in_selected = @options.include_group_label_in_selected || false
 
   set_default_text: ->
     if @form_field.getAttribute("data-placeholder")
@@ -39,6 +42,12 @@ class AbstractChosen
       @default_text = @options.placeholder_text_single || @options.placeholder_text || AbstractChosen.default_single_text
 
     @results_none_found = @form_field.getAttribute("data-no_results_text") || @options.no_results_text || AbstractChosen.default_no_result_text
+
+  choice_label: (item) ->
+    if @include_group_label_in_selected and item.group_label?
+      "<b class='group-name'>#{item.group_label}</b>#{item.html}"
+    else
+      item.html
 
   mouse_enter: -> @mouse_on_container = true
   mouse_leave: -> @mouse_on_container = false
@@ -95,8 +104,12 @@ class AbstractChosen
     return '' unless group.search_match || group.group_match
     return '' unless group.active_options > 0
 
+    classes = []
+    classes.push "group-result"
+    classes.push group.classes if group.classes
+
     group_el = document.createElement("li")
-    group_el.className = "group-result"
+    group_el.className = classes.join(" ")
     group_el.innerHTML = group.search_text
 
     this.outerHTML(group_el)
