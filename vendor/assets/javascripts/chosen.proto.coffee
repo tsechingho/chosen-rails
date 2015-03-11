@@ -51,8 +51,8 @@ class @Chosen extends AbstractChosen
     @form_field.fire("chosen:ready", {chosen: this})
 
   register_observers: ->
-    @container.observe "touchstart", (evt) => this.container_mousedown(evt)
-    @container.observe "touchend", (evt) => this.container_mouseup(evt)
+    @container.observe "touchstart", (evt) => this.container_mousedown(evt); evt.preventDefault()
+    @container.observe "touchend", (evt) => this.container_mouseup(evt); evt.preventDefault()
 
     @container.observe "mousedown", (evt) => this.container_mousedown(evt)
     @container.observe "mouseup", (evt) => this.container_mouseup(evt)
@@ -358,6 +358,8 @@ class @Chosen extends AbstractChosen
       @form_field.simulate("change") if typeof Event.simulate is 'function' && (@is_multiple || @form_field.selectedIndex != @current_selectedIndex)
       @current_selectedIndex = @form_field.selectedIndex
 
+      evt.preventDefault()
+
       this.search_field_scale()
 
   single_set_selected_text: (text=@default_text) ->
@@ -393,7 +395,7 @@ class @Chosen extends AbstractChosen
     @selected_item.addClassName("chosen-single-with-deselect")
 
   get_search_text: ->
-    if @search_field.value is @default_text then "" else @search_field.value.strip().escapeHTML()
+    @search_field.value.strip().escapeHTML()
 
   winnow_results_set_highlight: ->
     if not @is_multiple
