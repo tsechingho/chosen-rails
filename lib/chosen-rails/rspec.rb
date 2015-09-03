@@ -32,21 +32,24 @@ module Chosen
       end
 
       def chosen_find_container(from, options)
+        from = from.to_s
+
         id = from
         id = "##{id}" unless from.start_with?('#')
         id = "#{id}_chosen" unless from.end_with?('_chosen')
 
-        find(:div, id, options)
+        find(:css, id, options)
       rescue Capybara::ElementNotFound
         label = find('label', { text: from }.merge(options))
 
-        find(:div, "##{label[:for]}_chosen", options)
+        find(:css, "##{label[:for]}_chosen", options)
       end
 
       def chosen_find_input(from, options)
+        from = from.to_s
         from = "##{from}" unless from.start_with?('#')
 
-        find(:select, from, options)
+        find(:css, from, options)
       end
 
       def chosen_multiselect?(input)
@@ -59,7 +62,7 @@ module Chosen
         else
           input.click
 
-          within '.chosen-drop .chosen-results' do
+          within "##{input[:id]} .chosen-drop .chosen-results" do
             result = find('.active-result', text: item)
 
             result.click if result.visible?
