@@ -127,6 +127,7 @@ chosen_select('Leo Tolstoy', from: '#authors')
 chosen_unselect('Fyodor Dostoyevsky', ' Anton Chekhov', from: 'Authors')
 # or, by single value:
 chosen_unselect('Leo Tolstoy', from: '#authors')
+```
 
 ## Gem maintenance
 
