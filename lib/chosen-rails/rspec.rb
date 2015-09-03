@@ -4,15 +4,7 @@ module Chosen
       def chosen_select(value, *args)
         options = args.extract_options!
 
-        fail ArgumentError, 'Required argument from: not set' unless options.has_key?(:from)
-
-        from = options.delete(:from)
-
-        begin
-          input = chosen_find_container(from, options)
-        rescue Capybara::ElementNotFound
-          input = chosen_find_input(from, options)
-        end
+        input = chosen_input(options)
 
         args.unshift(value).uniq.each { |item| chosen_select!(input, item) }
       end
@@ -20,6 +12,14 @@ module Chosen
       def chosen_unselect(value, *args)
         options = args.extract_options!
 
+        input = chosen_input(options)
+
+        args.unshift(value).uniq.each { |item| chosen_unselect!(input, item) }
+      end
+
+      private
+
+      def chosen_input(options)
         fail ArgumentError, 'Required argument from: not set' unless options.has_key?(:from)
 
         from = options.delete(:from)
@@ -29,17 +29,7 @@ module Chosen
         rescue Capybara::ElementNotFound
           input = chosen_find_input(from, options)
         end
-
-        args.unshift(value).uniq.each do |item|
-          if chosen_multiselect?(input)
-            chosen_unselect_multiple!(input, item)
-          else
-            chosen_unselect_single!(input)
-          end
-        end
       end
-
-      private
 
       def chosen_find_container(from, options)
         id = from
@@ -77,21 +67,17 @@ module Chosen
         end
       end
 
-      def chosen_unselect_single!(input)
-        if input.tag_name == 'select'
-          input.find(:option, { selected: :selected }).unselect_option
-        else
-          input.first('.search-choice-close').click
-        end
-      end
-
-      def chosen_unselect_multiple!(input, item)
+      def chosen_unselect!(input, item)
         if input.tag_name == 'select'
           input.find(:option, item).unselect_option
         else
-          input.first('.search-choice', text: item)
-            .first('.search-choice-close')
-            .click
+          if chosen_multiselect?(input)
+            input.first('.search-choice', text: item)
+              .first('.search-choice-close')
+              .click
+          else
+            input.first('.search-choice-close').click
+          end
         end
       end
     end
