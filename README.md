@@ -1,3 +1,6 @@
+# Venture Media implemented fixes
+- fixed incompatibility with jQuery 2.2 (https://github.com/harvesthq/chosen/issues/2506)
+
 # Chosen for rails asset pipeline
 
 [Chosen](https://github.com/harvesthq/chosen) is a library for making long, unwieldy select boxes more user friendly.
@@ -73,7 +76,7 @@ Also add the class to your form field
 If you use simple form as form builder
 
 ```erb
-<%= f.association :author, 
+<%= f.association :author,
                   collection: User.all,
                   include_blank: true,
                   input_html: { class: 'chosen-select' }
