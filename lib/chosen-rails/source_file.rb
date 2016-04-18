@@ -36,7 +36,17 @@ class SourceFile < Thor
     self.destination_root = 'vendor/assets'
     gsub_file 'stylesheets/chosen-base.scss', /^\s*\@include.*\n/, ''
     gsub_file 'stylesheets/chosen-base.scss', /^\@import.*\n/, ''
-    gsub_file 'stylesheets/chosen-base.scss', /\n(\$chosen-sprite:)/, '\1'
+    # gsub_file 'stylesheets/chosen-base.scss', /\n(\$chosen-sprite:)/, '\1'
+  end
+
+  desc 'add depend_on_asset', 'add depend_on_asset'
+  def add_depend_on_asset
+    self.destination_root = 'vendor/assets'
+    scss = <<-SCSS.gsub(/^\s{6}/, '')
+      //= depend_on_asset "chosen-sprite.png"
+      //= depend_on_asset "chosen-sprite@2x.png"
+    SCSS
+    prepend_to_file 'stylesheets/chosen-base.scss', scss
   end
 
   desc 'clean up useless files', 'clean up useless files'
