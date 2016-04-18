@@ -19,6 +19,8 @@ Then run `bundle install`
 
 You need to add `compass-rails` manually since it is not a dependency from version 1.5.1.
 
+Please consider [jquery-turbolinks](https://github.com/kossnocorp/jquery.turbolinks) if you have turbolinks issues for Rails 4 +.
+
 ### Include chosen javascript assets
 
 Add to your `app/assets/javascripts/application.js` if use with jQuery
