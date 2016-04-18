@@ -1,0 +1,60 @@
+@import "chosen-base";
+
+@import "compass/css3/box-sizing";
+@import "compass/css3/images";
+@import "compass/css3/user-interface";
+
+$chosen-sprite: image-url('chosen-sprite.png') !default;
+$chosen-sprite-retina: image-url('chosen-sprite@2x.png') !default;
+
+.chosen-container {
+  @include user-select(none);
+  * {
+    @include box-sizing(border-box);
+  }
+}
+
+.chosen-container-single{
+  .chosen-single {
+    @include background(linear-gradient(#fff 20%, #f6f6f6 50%, #eee 52%, #f4f4f4 100%));
+  }
+  .chosen-search {
+      @include background($chosen-sprite no-repeat 100% -20px);
+  }
+}
+
+.chosen-container .chosen-results {
+  li {
+    &.highlighted {
+      @include background-image(linear-gradient(#3875d7 20%, #2a62bc 90%));
+    }
+  }
+}
+
+.chosen-container-multi{
+  .chosen-choices {
+    @include background-image(linear-gradient(#eee 1%, #fff 15%));
+  }
+  .chosen-choices li {
+    &.search-choice {
+      @include background-image(linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eee 100%));
+    }
+    &.search-choice-disabled {
+      @include background-image(linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eee 100%));
+    }
+  }
+}
+
+.chosen-container-active{
+  &.chosen-with-drop{
+    .chosen-single {
+      @include background-image(linear-gradient(#eee 20%, #fff 80%));
+    }
+  }
+}
+
+.chosen-rtl {
+  .chosen-search input[type="text"] {
+    @include background($chosen-sprite no-repeat -30px -20px);
+  }
+}

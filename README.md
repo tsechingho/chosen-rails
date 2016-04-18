@@ -11,10 +11,13 @@ The `chosen-rails` gem integrates the `Chosen` with the Rails asset pipeline.
 Include `chosen-rails` in Gemefile
 
 ```rb
+gem 'compass-rails'
 gem 'chosen-rails'
 ```
 
 Then run `bundle install`
+
+You need to add `compass-rails` manually since it is not a dependency from version 1.5.1.
 
 ### Include chosen javascript assets
 
@@ -33,6 +36,12 @@ Or with Prototype
 ### Include chosen stylesheet assets
 
 Add to your `app/assets/stylesheets/application.css`
+
+```scss
+*= require chosen-compass
+```
+
+or without `compass-rails`
 
 ```scss
 *= require chosen
@@ -73,7 +82,7 @@ Also add the class to your form field
 If you use simple form as form builder
 
 ```erb
-<%= f.association :author, 
+<%= f.association :author,
                   collection: User.all,
                   include_blank: true,
                   input_html: { class: 'chosen-select' }

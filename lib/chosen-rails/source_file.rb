@@ -9,7 +9,7 @@ class SourceFile < Thor
     self.destination_root = 'vendor/assets'
     get "#{remote}/raw/#{branch}/public/chosen-sprite.png", 'images/chosen-sprite.png'
     get "#{remote}/raw/#{branch}/public/chosen-sprite@2x.png", 'images/chosen-sprite@2x.png'
-    get "#{remote}/raw/#{branch}/sass/chosen.scss", 'stylesheets/chosen.scss'
+    get "#{remote}/raw/#{branch}/sass/chosen.scss", 'stylesheets/chosen-base.scss'
     get "#{remote}/raw/#{branch}/coffee/lib/abstract-chosen.coffee", 'javascripts/lib/abstract-chosen.coffee'
     get "#{remote}/raw/#{branch}/coffee/lib/select-parser.coffee", 'javascripts/lib/select-parser.coffee'
     get "#{remote}/raw/#{branch}/coffee/chosen.jquery.coffee", 'javascripts/chosen.jquery.coffee'
@@ -29,6 +29,14 @@ class SourceFile < Thor
         "\n\nwindow.SelectParser = SelectParser\n"
       end
     end
+  end
+
+  desc 'remove compass lines', 'remove compass lines'
+  def remove_compass_lines
+    self.destination_root = 'vendor/assets'
+    gsub_file 'stylesheets/chosen-base.scss', /^\s*\@include.*\n/, ''
+    gsub_file 'stylesheets/chosen-base.scss', /^\@import.*\n/, ''
+    gsub_file 'stylesheets/chosen-base.scss', /\n(\$chosen-sprite:)/, '\1'
   end
 
   desc 'clean up useless files', 'clean up useless files'
