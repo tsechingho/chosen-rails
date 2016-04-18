@@ -1,3 +1,6 @@
+//= depend_on_asset "chosen-sprite.png"
+//= depend_on_asset "chosen-sprite@2x.png"
+
 $chosen-sprite: image-url('chosen-sprite.png') !default;
 $chosen-sprite-retina: image-url('chosen-sprite@2x.png') !default;
 
