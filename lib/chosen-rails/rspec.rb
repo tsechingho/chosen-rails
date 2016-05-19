@@ -63,7 +63,7 @@ module Chosen
           input.click
 
           within "##{input[:id]} .chosen-drop .chosen-results" do
-            result = find('.active-result', text: item)
+            result = find('.active-result', text: item, match: :prefer_exact)
 
             result.click if result.visible?
           end
