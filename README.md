@@ -8,7 +8,7 @@ The `chosen-rails` gem integrates the `Chosen` with the Rails asset pipeline.
 
 ### Install chosen-rails gem
 
-Include `chosen-rails` in Gemefile
+Include `chosen-rails` in Gemfile
 
 ```rb
 gem 'compass-rails'
