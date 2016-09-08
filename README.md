@@ -11,13 +11,10 @@ The `chosen-rails` gem integrates the `Chosen` with the Rails asset pipeline.
 Include `chosen-rails` in Gemfile
 
 ```rb
-gem 'compass-rails'
 gem 'chosen-rails'
 ```
 
 Then run `bundle install`
-
-You need to add `compass-rails` manually since it is not a dependency from version 1.5.1.
 
 Please consider [jquery-turbolinks](https://github.com/kossnocorp/jquery.turbolinks) if you have turbolinks issues for Rails 4 +.
 
@@ -38,12 +35,6 @@ Or with Prototype
 ### Include chosen stylesheet assets
 
 Add to your `app/assets/stylesheets/application.css`
-
-```scss
-*= require chosen-compass
-```
-
-or without `compass-rails`
 
 ```scss
 *= require chosen
