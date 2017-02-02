@@ -20,6 +20,7 @@ class AbstractChosen
     @mouse_on_container = false
     @results_showing = false
     @result_highlighted = null
+    @is_rtl = @options.rtl || /\bchosen-rtl\b/.test(@form_field.className)
     @allow_single_deselect = if @options.allow_single_deselect? and @form_field.options[0]? and @form_field.options[0].text is "" then @options.allow_single_deselect else false
     @disable_search_threshold = @options.disable_search_threshold || 0
     @disable_search = @options.disable_search || false
@@ -34,6 +35,7 @@ class AbstractChosen
     @include_group_label_in_selected = @options.include_group_label_in_selected || false
     @max_shown_results = @options.max_shown_results || Number.POSITIVE_INFINITY
     @case_sensitive_search = @options.case_sensitive_search || false
+    @hide_results_on_select = if @options.hide_results_on_select? then @options.hide_results_on_select else true
 
   set_default_text: ->
     if @form_field.getAttribute("data-placeholder")
@@ -42,6 +44,8 @@ class AbstractChosen
       @default_text = @options.placeholder_text_multiple || @options.placeholder_text || AbstractChosen.default_multiple_text
     else
       @default_text = @options.placeholder_text_single || @options.placeholder_text || AbstractChosen.default_single_text
+
+    @default_text = this.escape_html(@default_text)
 
     @results_none_found = @form_field.getAttribute("data-no_results_text") || @options.no_results_text || AbstractChosen.default_no_result_text
 
@@ -64,6 +68,12 @@ class AbstractChosen
     if not @mouse_on_container
       @active_field = false
       setTimeout (=> this.blur_test()), 100
+
+  label_click_handler: (evt) =>
+    if @is_multiple
+      this.container_mousedown(evt)
+    else
+      this.activate_field()
 
   results_option_build: (options) ->
     content = ''
@@ -156,8 +166,8 @@ class AbstractChosen
 
     searchText = this.get_search_text()
     escapedSearchText = searchText.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&")
-    zregex = new RegExp(escapedSearchText, 'i')
     regex = this.get_search_regex(escapedSearchText)
+    highlightRegex = this.get_highlight_regex(escapedSearchText)
 
     for option in @results_data
 
@@ -183,7 +193,7 @@ class AbstractChosen
 
           if option.search_match
             if searchText.length
-              startpos = option.search_text.search zregex
+              startpos = option.search_text.search highlightRegex
               text = option.search_text.substr(0, startpos + searchText.length) + '</em>' + option.search_text.substr(startpos + searchText.length)
               option.search_text = text.substr(0, startpos) + '<em>' + text.substr(startpos)
 
@@ -203,6 +213,11 @@ class AbstractChosen
 
   get_search_regex: (escaped_search_string) ->
     regex_anchor = if @search_contains then "" else "^"
+    regex_flag = if @case_sensitive_search then "" else "i"
+    new RegExp(regex_anchor + escaped_search_string, regex_flag)
+
+  get_highlight_regex: (escaped_search_string) ->
+    regex_anchor = if @search_contains then "" else "\\b"
     regex_flag = if @case_sensitive_search then "" else "i"
     new RegExp(regex_anchor + escaped_search_string, regex_flag)
 
@@ -228,30 +243,68 @@ class AbstractChosen
 
   choices_click: (evt) ->
     evt.preventDefault()
+    this.activate_field()
     this.results_show() unless @results_showing or @is_disabled
+
+  keydown_checker: (evt) ->
+    stroke = evt.which ? evt.keyCode
+    this.search_field_scale()
+
+    this.clear_backstroke() if stroke != 8 and @pending_backstroke
+
+    switch stroke
+      when 8 # backspace
+        @backstroke_length = this.get_search_field_value().length
+        break
+      when 9 # tab
+        this.result_select(evt) if @results_showing and not @is_multiple
+        @mouse_on_container = false
+        break
+      when 13 # enter
+        evt.preventDefault() if @results_showing
+        break
+      when 27 # escape
+        evt.preventDefault() if @results_showing
+        break
+      when 32 # space
+        evt.preventDefault() if @disable_search
+        break
+      when 38 # up arrow
+        evt.preventDefault()
+        this.keyup_arrow()
+        break
+      when 40 # down arrow
+        evt.preventDefault()
+        this.keydown_arrow()
+        break
 
   keyup_checker: (evt) ->
     stroke = evt.which ? evt.keyCode
     this.search_field_scale()
 
     switch stroke
-      when 8
+      when 8 # backspace
         if @is_multiple and @backstroke_length < 1 and this.choices_count() > 0
           this.keydown_backstroke()
         else if not @pending_backstroke
           this.result_clear_highlight()
           this.results_search()
-      when 13
+        break
+      when 13 # enter
         evt.preventDefault()
         this.result_select(evt) if this.results_showing
-      when 27
+        break
+      when 27 # escape
         this.results_hide() if @results_showing
-        return true
-      when 9, 38, 40, 16, 91, 17, 18
+        break
+      when 9, 16, 17, 18, 38, 40, 91
         # don't do anything on these keys
-      else this.results_search()
+      else
+        this.results_search()
+        break
 
   clipboard_event_checker: (evt) ->
+    return if @is_disabled
     setTimeout (=> this.results_search()), 50
 
   container_width: ->
@@ -280,6 +333,39 @@ class AbstractChosen
     tmp = document.createElement("div")
     tmp.appendChild(element)
     tmp.innerHTML
+
+  get_single_html: ->
+    """
+      <a class="chosen-single chosen-default">
+        <span>#{@default_text}</span>
+        <div><b></b></div>
+      </a>
+      <div class="chosen-drop">
+        <div class="chosen-search">
+          <input class="chosen-search-input" type="text" autocomplete="off" />
+        </div>
+        <ul class="chosen-results"></ul>
+      </div>
+    """
+
+  get_multi_html: ->
+    """
+      <ul class="chosen-choices">
+        <li class="search-field">
+          <input class="chosen-search-input" type="text" autocomplete="off" value="#{@default_text}" />
+        </li>
+      </ul>
+      <div class="chosen-drop">
+        <ul class="chosen-results"></ul>
+      </div>
+    """
+
+  get_no_results_html: (terms) ->
+    """
+      <li class="no-results">
+        #{@results_none_found} <span>#{terms}</span>
+      </li>
+    """
 
   # class methods and variables ============================================================
 
