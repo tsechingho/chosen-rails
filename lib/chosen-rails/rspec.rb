@@ -34,7 +34,7 @@ module Chosen
       def chosen_find_container(from, options)
         from = from.to_s
 
-        id = from
+        id = from.underscore
         id = "##{id}" unless from.start_with?('#')
         id = "#{id}_chosen" unless from.end_with?('_chosen')
 
@@ -42,14 +42,14 @@ module Chosen
       rescue Capybara::ElementNotFound
         label = find('label', { text: from }.merge(options))
 
-        find(:css, "##{label[:for]}_chosen", options)
+        find(:css, "##{label[:for].underscore}_chosen", options)
       end
 
       def chosen_find_input(from, options)
         from = from.to_s
         from = "##{from}" unless from.start_with?('#')
 
-        find(:css, from, options)
+        find(:css, from.underscore, options)
       end
 
       def chosen_multiselect?(input)
