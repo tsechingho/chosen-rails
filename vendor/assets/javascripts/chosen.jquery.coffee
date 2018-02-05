@@ -198,7 +198,7 @@ class Chosen extends AbstractChosen
 
     if @is_multiple
       @search_choices.find("li.search-choice").remove()
-    else if not @is_multiple
+    else
       this.single_set_selected_text()
       if @disable_search or @form_field.options.length <= @disable_search_threshold
         @search_field[0].readOnly = true
@@ -243,6 +243,9 @@ class Chosen extends AbstractChosen
       @form_field_jq.trigger("chosen:maxselected", {chosen: this})
       return false
 
+    unless @is_multiple
+      @search_container.append @search_field
+
     @container.addClass "chosen-with-drop"
     @results_showing = true
 
@@ -258,6 +261,10 @@ class Chosen extends AbstractChosen
   results_hide: ->
     if @results_showing
       this.result_clear_highlight()
+
+      unless @is_multiple
+        @selected_item.prepend @search_field
+        @search_field.focus()
 
       @container.removeClass "chosen-with-drop"
       @form_field_jq.trigger("chosen:hiding_dropdown", {chosen: this})
