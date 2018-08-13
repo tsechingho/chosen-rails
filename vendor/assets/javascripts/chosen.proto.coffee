@@ -235,9 +235,6 @@ class @Chosen extends AbstractChosen
       @form_field.fire("chosen:maxselected", {chosen: this})
       return false
 
-    unless @is_multiple
-      @search_container.insert @search_field
-
     @container.addClassName "chosen-with-drop"
     @results_showing = true
 
@@ -253,10 +250,6 @@ class @Chosen extends AbstractChosen
   results_hide: ->
     if @results_showing
       this.result_clear_highlight()
-
-      unless @is_multiple
-        @selected_item.insert top: @search_field
-        @search_field.focus()
 
       @container.removeClassName "chosen-with-drop"
       @form_field.fire("chosen:hiding_dropdown", {chosen: this})
@@ -365,7 +358,6 @@ class @Chosen extends AbstractChosen
 
       @form_field.options[item.options_index].selected = true
       @selected_option_count = null
-      @search_field.value = ""
 
       if @is_multiple
         this.choice_build item
@@ -373,7 +365,11 @@ class @Chosen extends AbstractChosen
         this.single_set_selected_text(this.choice_label(item))
 
       if @is_multiple && (!@hide_results_on_select || (evt.metaKey or evt.ctrlKey))
-        this.winnow_results()
+        if evt.metaKey or evt.ctrlKey
+          this.winnow_results(skip_highlight: true)
+        else
+          @search_field.value = ""
+          this.winnow_results()
       else
         this.results_hide()
         this.show_search_field_default()
