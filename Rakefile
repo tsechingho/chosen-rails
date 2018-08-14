@@ -11,5 +11,6 @@ task 'update-chosen', 'repository_url', 'branch' do |task, args|
   files.eject_javascript_class_from_closure
   files.remove_compass_lines
   files.add_depend_on_asset
+  files.change_url_to_image_url
   files.cleanup
 end

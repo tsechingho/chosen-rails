@@ -1,7 +1,7 @@
 //= depend_on_asset "chosen-sprite.png"
 //= depend_on_asset "chosen-sprite@2x.png"
-$chosen-sprite: url('chosen-sprite.png') !default;
-$chosen-sprite-retina: url('chosen-sprite@2x.png') !default;
+$chosen-sprite: image-url('chosen-sprite.png') !default;
+$chosen-sprite-retina: image-url('chosen-sprite@2x.png') !default;
 
 /* @group Base */
 .chosen-container {

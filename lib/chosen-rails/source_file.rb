@@ -49,6 +49,12 @@ class SourceFile < Thor
     prepend_to_file 'stylesheets/chosen-base.scss', scss
   end
 
+  desc 'change url to image url', 'change url to image url'
+  def change_url_to_image_url
+    self.destination_root = 'vendor/assets'
+    gsub_file 'stylesheets/chosen-base.scss', /url/, 'image-url'
+  end
+
   desc 'clean up useless files', 'clean up useless files'
   def cleanup
     self.destination_root = 'vendor/assets'
