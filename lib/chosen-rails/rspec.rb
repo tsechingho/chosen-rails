@@ -88,5 +88,6 @@ module Chosen
 end
 
 RSpec.configure do |config|
+  config.include Chosen::Rspec::FeatureHelpers, type: :system
   config.include Chosen::Rspec::FeatureHelpers, type: :feature
 end
