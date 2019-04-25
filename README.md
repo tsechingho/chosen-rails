@@ -1,17 +1,17 @@
-# Chosen for rails asset pipeline
+# Chosen for rails asset pipeline (TRLN fork)
 
 [Chosen](https://github.com/harvesthq/chosen) is a library for making long, unwieldy select boxes more user friendly.
 
-The `chosen-rails` gem integrates the `Chosen` with the Rails asset pipeline.
+The `trln-chosen-rails` gem integrates the `Chosen` with the Rails asset pipeline.  This project is a fork of the original `chosen-rails` which removes the dependency on the now deprecated `sass` gem.
 
 ## Usage
 
 ### Install chosen-rails gem
 
-Include `chosen-rails` in Gemfile
+Include `trln-chosen-rails` in Gemfile
 
 ```rb
-gem 'chosen-rails'
+gem 'trln-chosen-rails'
 ```
 
 Then run `bundle install`
