@@ -31,14 +31,6 @@ class SourceFile < Thor
     end
   end
 
-  desc 'remove compass lines', 'remove compass lines'
-  def remove_compass_lines
-    self.destination_root = 'vendor/assets'
-    gsub_file 'stylesheets/chosen-base.scss', /^\s*\@include.*\n/, ''
-    gsub_file 'stylesheets/chosen-base.scss', /^\@import.*\n/, ''
-    # gsub_file 'stylesheets/chosen-base.scss', /\n(\$chosen-sprite:)/, '\1'
-  end
-
   desc 'add depend_on_asset', 'add depend_on_asset'
   def add_depend_on_asset
     self.destination_root = 'vendor/assets'
