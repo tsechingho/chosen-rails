@@ -2,7 +2,7 @@
 
 [Chosen](https://github.com/harvesthq/chosen) is a library for making long, unwieldy select boxes more user friendly.
 
-The `chosen-rails` gem integrates the `Chosen` with the Rails asset pipeline.
+The `chosen-rails` gem integrates the `Chosen` into Rails asset pipeline with the [sprockets-rails](https://github.com/rails/sprockets-rails).
 
 ## Usage
 
@@ -11,10 +11,15 @@ The `chosen-rails` gem integrates the `Chosen` with the Rails asset pipeline.
 Include `chosen-rails` in Gemfile
 
 ```rb
+gem 'jquery-rails'
 gem 'chosen-rails'
 ```
 
 Then run `bundle install`
+
+### About JQuery
+
+You can get jquery via [jquery-rails](https://github.com/rails/jquery-rails).
 
 Please consider [jquery-turbolinks](https://github.com/kossnocorp/jquery.turbolinks) if you have turbolinks issues for Rails 4 +.
 
@@ -23,12 +28,16 @@ Please consider [jquery-turbolinks](https://github.com/kossnocorp/jquery.turboli
 Add to your `app/assets/javascripts/application.js` if use with jQuery
 
 ```coffee
+//= require jquery
+//= require jquery_ujs
 //= require chosen-jquery
 ```
 
 Or with Prototype
 
 ```coffee
+//= require jquery
+//= require jquery_ujs
 //= require chosen-prototype
 ```
 
@@ -41,6 +50,12 @@ Add to your `app/assets/stylesheets/application.css`
 ```
 
 ### Enable chosen javascript by specific css class
+
+For rails 6, remember to add `javascript_include_tag` in `app/views/layouts/application.html.erb`, like
+
+```ruby
+<%= javascript_include_tag 'application' %>
+```
 
 Add to one coffee script file, like `scaffold.js.coffee`
 
