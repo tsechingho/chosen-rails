@@ -29,7 +29,6 @@ Add to your `app/assets/javascripts/application.js` if use with jQuery
 
 ```coffee
 //= require jquery
-//= require jquery_ujs
 //= require chosen-jquery
 ```
 
@@ -37,7 +36,6 @@ Or with Prototype
 
 ```coffee
 //= require jquery
-//= require jquery_ujs
 //= require chosen-prototype
 ```
 
