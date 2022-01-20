@@ -6,7 +6,7 @@ module Chosen
 end
 
 case ::Rails.version.to_s
-when /^(4|5|6)/
+when /^(4|5|6|7)/
   require 'chosen-rails/engine'
 when /^3\.[12]/
   require 'chosen-rails/engine3'
